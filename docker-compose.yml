@@ -18,7 +18,7 @@ services:
     environment:
       DATABASE_HOST: db
     command: >
-      bash -c "sleep 120
+      bash -c "sleep 20
       && python backend/codexpose/manage.py makemigrations interview
       && python backend/codexpose/manage.py migrate
       && python backend/codexpose/manage.py createsuperuser

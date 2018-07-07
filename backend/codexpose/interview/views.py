@@ -35,7 +35,7 @@ class QuestionViewSet(viewsets.ModelViewSet):
     permission_classes = (QuestionViewSetPermission,)
 
     def retrieve(self, request, *args, **kwargs):
-        """
+        """''
         Method to retrieve question object.
         This method will return the data stored in question files.
         """
@@ -45,12 +45,22 @@ class QuestionViewSet(viewsets.ModelViewSet):
             serializer.data['problem_statement'].split('/')[-2:])
         skeleton_path = settings.MEDIA_ROOT + '/' + '/'.join(
             serializer.data['skeleton'].split('/')[-2:])
+        input_path = settings.MEDIA_ROOT + '/' + '/'.join(
+            serializer.data['test_input'].split('/')[-2:])
+        output_path = settings.MEDIA_ROOT + '/' + '/'.join(
+            serializer.data['test_output'].split('/')[-2:])
         with open(question_path) as question_fp:
             problem_statement = question_fp.read()
         with open(skeleton_path) as skeleton_fp:
             skeleton = skeleton_fp.read()
+        with open(input_path) as input_fp:
+            input_file = input_fp.read()
+        with open(output_path) as output_fp:
+            output_file = output_fp.read()
         data = {'problem_statement': problem_statement, 'function': skeleton,
-                'title': serializer.data['title']}
+                'title': serializer.data['title'], 'input_file': input_file, 
+                'output_file': output_file, 'input_type': serializer.data['input_type'],
+                 'output_type':  serializer.data['output_type']}
         return Response(data)
 
 
@@ -141,12 +151,22 @@ class TestViewSet(viewsets.ModelViewSet):
                 question['problem_statement'].split('/')[-2:])
             skeleton_path = settings.MEDIA_ROOT + '/' + '/'.join(
                 question['skeleton'].split('/')[-2:])
+            input_path = settings.MEDIA_ROOT + '/' + '/'.join(
+                question['test_input'].split('/')[-2:])
+            output_path = settings.MEDIA_ROOT + '/' + '/'.join(
+                question['test_output'].split('/')[-2:])
             with open(question_path) as question_fp:
                 problem_statement = question_fp.read()
             with open(skeleton_path) as skeleton_fp:
                 skeleton = skeleton_fp.read()
+            with open(input_path) as input_fp:
+                test_input = input_fp.read()
+            with open(output_path) as output_fp:
+                test_output = output_fp.read()
             question['problem_statement'] = problem_statement
             question['skeleton'] = skeleton
+            question['test_input'] = test_input
+            question['test_output'] = test_output
         return Response(serializer.data)
 
     def create(self, request, *args, **kwargs):
