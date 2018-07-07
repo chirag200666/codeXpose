@@ -49,14 +49,17 @@ def question_data_path(instance, filename):
 
 
 def question_test_input_path(instance, filename):
+    """Returns Questions test input path."""
     return 'question_{0}/{1}'.format(instance.id, "input.txt")
 
 
 def question_test_ouput_path(instance, filename):
+    """Returns Questions test output path."""
     return 'question_{0}/{1}'.format(instance.id, "output.txt")
 
 
 def question_skeleton_path(instance, filename):
+    """Returns Questions skeleton path."""
     return 'question_{0}/{1}'.format(instance.id, "skeleton.txt")
 
 
