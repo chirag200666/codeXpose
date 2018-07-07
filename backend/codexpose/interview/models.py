@@ -47,11 +47,14 @@ def question_data_path(instance, filename):
     # question data will be uploaded to MEDIA_ROOT/question_<id>/<filename>
     return 'question_{0}/{1}'.format(instance.id, "question.txt")
 
+
 def question_test_input_path(instance, filename):
     return 'question_{0}/{1}'.format(instance.id, "input.txt")
 
+
 def question_test_ouput_path(instance, filename):
     return 'question_{0}/{1}'.format(instance.id, "output.txt")
+
 
 def question_skeleton_path(instance, filename):
     return 'question_{0}/{1}'.format(instance.id, "skeleton.txt")
@@ -65,11 +68,10 @@ class Question(models.Model):
         ('HARD', 'Hard')
     )
     input_choice = (
-        ("INTEGER", "Integer" ),
-        ("STRING", "String" ),
-        ("ARRAY", "Array" ),
-        ("MATRIX", "Matrix" ),
-
+        ('INTEGER', 'Integer'),
+        ('STRING', 'String'),
+        ('ARRAY', 'Array'),
+        ('MATRIX', 'Matrix')
     )
     title = models.CharField(max_length=50)
     question_type = models.CharField(max_length=20)
@@ -79,7 +81,7 @@ class Question(models.Model):
                                   default='INTEGER')
     test_ouput = models.FileField(upload_to=question_test_ouput_path)
     output_type = models.CharField(max_length=10, choices=input_choice,
-                                  default='INTEGER')
+                                   default='INTEGER')
     skeleton = models.FileField(upload_to=question_skeleton_path)
     marks = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)

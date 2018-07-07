@@ -58,9 +58,10 @@ class QuestionViewSet(viewsets.ModelViewSet):
         with open(output_path) as output_fp:
             output_file = output_fp.read()
         data = {'problem_statement': problem_statement, 'function': skeleton,
-                'title': serializer.data['title'], 'input_file': input_file, 
-                'output_file': output_file, 'input_type': serializer.data['input_type'],
-                 'output_type':  serializer.data['output_type']}
+                'title': serializer.data['title'], 'input_file': input_file,
+                'output_file': output_file,
+                'input_type': serializer.data['input_type'],
+                'output_type': serializer.data['output_type']}
         return Response(data)
 
 
